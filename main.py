@@ -1,3 +1,6 @@
+import time
 import streamlit as st
 
-st.title("My Web")
+with st.spinner("Wait for it..."):
+    time.sleep(5)
+st.success("Done!")
