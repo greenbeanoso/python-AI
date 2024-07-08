@@ -3,6 +3,7 @@ print("hELlO wORLD?")  # 印出hello world
 # 這是單行註解
 """
 這是多行註解
+
 """
 # if True: # ctrl + / 可以注解
 #     pass
@@ -59,3 +60,4 @@ print("hELlO wORLD?")  # 印出hello world
 a = input("請輸入你的名字：")  # a是回傳值 input可以讓用戶輸入
 print(type(a))  # input回傳值的類型
 # input可以讓用戶輸入 回傳值為字串
+# import 可以匯入模組 不同模組可以用同一個名字

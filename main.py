@@ -1,6 +1,6 @@
-import time
 import streamlit as st
 
-with st.spinner("Wait for it..."):
-    time.sleep(5)
-st.success("Done!")
+st.title("標題")
+st.markdown("* **Hello world**")
+if st.button("SNOW"):
+    st.snow()
