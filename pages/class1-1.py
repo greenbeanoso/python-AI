@@ -7,6 +7,7 @@ print("hELlO wORLD?")  # 印出hello world
 # if True: # ctrl + / 可以注解
 #     pass
 
+# 下午
 print("a")  # 字串str
 print("1")  #
 
