@@ -1,12 +1,4 @@
-import streamlit as st
-import streamlit.components.v1 as components
-
-st.set_page_config(
-    page_title="一個網頁", initial_sidebar_state="collapsed", layout="wide"
-)
-components.html(
-    """
-    <html>
+<html>
   <head>
     <style>
       #catalog {
@@ -70,7 +62,7 @@ components.html(
   </head>
   <title>有</title>
   <body class="coolDark">
-    <h1 class="TitleText"><big class="bigger">A   Website</big></h1>
+    <h1 class="TitleText"><big class="bigger">A Website</big></h1>
     <script>
       var H = 0;
       function Hloop() {
@@ -94,13 +86,11 @@ components.html(
     <div id="catalog">
       <div class="linearBG_B Up"><h1 class="lightText">目錄</h1></div>
       <h2 class="SonPart">
-        <p></p>
+        <button class="button" onclick="window.open('https://www.google.com/')">
+          <p>1-1</p>
+        </button>
       </h2>
       <div class="linearBG_B Down"><h1 class="lightText">😀</h1></div>
     </div>
   </slide>
 </html>
-
-    """,
-    height=1000,
-)
