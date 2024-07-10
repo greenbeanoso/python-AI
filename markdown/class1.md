@@ -6,7 +6,7 @@ st.write(
 )
 st.text("這是一個用 `st.text` 顯示的純文字字串，只能顯示純文字，不支持其他格式。")
 st.markdown(
-    """
+    '''
 這是一個用 `st.markdown` 顯示的字串，可以處理 Markdown 語法。
 例如：
 * **粗體文字**
@@ -16,10 +16,10 @@ st.markdown(
 `python
 print("Hello, Streamlit!")
 `
-"""
+'''
 )
 st.markdown(
-    """
+    '''
 ## Python 程式技巧筆記
 
 ### 1. `print` 函數
@@ -131,5 +131,5 @@ print(type(a))                # 印出 input 回傳值的類型
 `python
 ### import 可以匯入模組 不同模組可以用同一個名字
 `
-"""
+'''
 )
