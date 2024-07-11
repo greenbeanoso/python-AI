@@ -1,18 +1,43 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import extra_streamlit_components as stx
+import os
 
+if "LoDM" not in st.session_state:
+    st.session_state.LoDM = ["dark", "☀️", "#5e5e5e", "#c7c7c7", "#ffffff"]
 st.set_page_config(
-    page_title="一個網頁", initial_sidebar_state="collapsed", layout="wide"
+    page_title="一個網頁",
+    initial_sidebar_state="collapsed",
+    layout="wide",
+    page_icon="🐄",
 )
+LoDM = st.session_state.LoDM
+if st.button(LoDM[1]):
+    if LoDM[0] == "dark":
+        LoDM[1] = "☀️"
+        LoDM[0] = "light"
+        LoDM[2] = "#c7c7c7"
+        LoDM[3] = "#5e5e5e"
+        LoDM[4] = "#000000"
+        print(LoDM)
+    else:
+        LoDM[1] = "🌙"
+        LoDM[0] = "dark"
+        LoDM[2] = "#5e5e5e"
+        LoDM[3] = "#c7c7c7"
+        LoDM[4] = "#ffffff"
+        print(LoDM)
+    st.rerun()
+
 components.html(
-    """
+    f"""
     <html>
   <head>
     <style>
-      .bigger {
+      .bigger {{
         font-size: 2em;
-      }
-      .TitleText {
+      }}
+      .TitleText {{
         background: linear-gradient(45deg, hsl(0, 0%, 100%), hsl(0, 0%, 0%));
         background-clip: text;
         color: transparent;
@@ -21,18 +46,10 @@ components.html(
         justify-content: center; /* 元素對齊 */
         padding: 0;
         margin: 0px; /* 去掉元素頂部和底部的間隔 */
-        text-shadow: -15px 5px #5e5e5e, 15px -5px #c7c7c7;
-        -webkit-text-stroke: 2px#ffffff;
-      }
-      .Up {
-        border-radius: 50px 50px 0 0;
-      }
-      .Down {
-        border-radius: 0 0 50px 50px;
-      }
-      .coolDark {
-        background-color: rgb(24, 24, 24);
-      }
+        text-shadow: -15px 5px {LoDM[3]}, 15px -5px {LoDM[2]};
+        -webkit-text-stroke: {LoDM[4]} 2px;
+      }}
+      
     </style>
   </head>
     <h1 class="TitleText"><big class="bigger">A Website</big></h1>
@@ -101,21 +118,21 @@ with col1:
     <h2 class="SonPart">
       <button
         class="button item"
-        onclick="window.open('https://www.google.com/','_self')"
+        onclick="WEBCHANGE(HOME)"
       >
         <p>HOME</p>
       </button>
       </br>
       <button
         class="button item"
-        onclick="window.open('https://just-a-web-by-osogreenbean.streamlit.app/class1-2','_self')"
+        onclick="WEBCHANGE(1)"
       >
         <p>《註解、資料型別與運算技巧》</p>
       </button>
       </br>
       <button
         class="button item"
-        onclick="window.open('http://localhost:8501/class2-2' ,'_self')"
+        onclick="WEBCHANGE(2)"
       >
         <p>第二天筆記</p>
       </button>
@@ -123,6 +140,7 @@ with col1:
     <div class="linearBG_B Down lightText">😀</div>
   </div>
     <script>
+
       var H = 0;
       function Hloop() {
         H += 2;
@@ -139,11 +157,15 @@ with col1:
 
       // 使用 setInterval 每 100 毫秒執行一次 Hloop 函數
       setInterval(Hloop, 50);
+      function WEBCHANGE(num) {
+          document.cookie = "webNum=" + num.toString() + "; path=/";
+      }
+      WEBCHANGE(1)
     </script>
 </html>
 
 """,
-        height=10000,
+        height=500,
     )
 with col2:
     st.markdown(
@@ -271,3 +293,60 @@ with col2:
 			`
 			"""
     )
+cookie_manager = stx.CookieManager()
+cookies = "HOME"
+floderpath = "markdown"
+files = os.listdir(floderpath)
+oldcookie = cookies
+
+
+def pageUpdate():
+    if "webNum" in cookies:
+        print(cookies["webNum"])
+        if cookies["webNum"] != "HOME":
+            with col2:
+                with open(
+                    floderpath + f"/class{cookies['webNum']}.md", encoding="utf-8"
+                ) as f:
+                    cotent = f.read()
+                st.markdown(cotent)
+        elif cookies["webNum"] == "HOME":
+            with col2:
+                st.html(
+                    """
+				<html>
+				<head>
+					<style>
+					#content {
+						overflow: auto;
+						align-items: center;
+						color: rgb(255, 255, 255);
+						text-shadow: 0px 1px 10px #eaeaea, 0px 0px 10px #a5a0ff;
+						width: 65%; /* 調整內容的寬度 */
+						margin-left: 5%; /* 左邊留白 */
+					}
+					</style>
+				</head>
+				<body>
+					<div id="content">
+					這是內容!
+					</div>
+				</body>
+				</html>
+				"""
+                )
+
+
+@st.experimental_fragment(run_every=1)
+def isCookieChange():
+    global oldcookie
+    cookies = cookie_manager.get_all()
+    if oldcookie != cookies:
+        pageUpdate()
+    else:
+        pass
+    oldcookie = cookies
+    st.rerun()
+
+
+isCookieChange()
