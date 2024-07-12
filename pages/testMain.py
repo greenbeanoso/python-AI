@@ -2,17 +2,24 @@ import streamlit as st
 import streamlit.components.v1 as components
 import extra_streamlit_components as stx
 import os
+<<<<<<< HEAD
 import time
 
 if "LoDM" not in st.session_state:
     st.session_state.LoDM = ["dark", "☀️", "#5e5e5e", "#c7c7c7", "#ffffff"]
 LoDM = st.session_state.LoDM
+=======
+
+if "LoDM" not in st.session_state:
+    st.session_state.LoDM = ["dark", "☀️", "#5e5e5e", "#c7c7c7", "#ffffff"]
+>>>>>>> dc4d4ebaaaf008074bc021e327f75eec8ba21ba8
 st.set_page_config(
     page_title="一個網頁",
     initial_sidebar_state="collapsed",
     layout="wide",
     page_icon="🐄",
 )
+<<<<<<< HEAD
 if "howL" not in st.session_state:
     st.session_state.howL = 0
 print(st.session_state.howL)
@@ -33,11 +40,17 @@ def LoD(mode):
     else:
         while st.session_state.howL < 255:
             st.session_state.howL += 1
+=======
+LoDM = st.session_state.LoDM
+if st.button(LoDM[1]):
+    if LoDM[0] == "dark":
+>>>>>>> dc4d4ebaaaf008074bc021e327f75eec8ba21ba8
         LoDM[1] = "☀️"
         LoDM[0] = "light"
         LoDM[2] = "#c7c7c7"
         LoDM[3] = "#5e5e5e"
         LoDM[4] = "#000000"
+<<<<<<< HEAD
 
 
 if st.button(LoDM[1]):
@@ -59,6 +72,18 @@ st.markdown(
 )
 
 
+=======
+        print(LoDM)
+    else:
+        LoDM[1] = "🌙"
+        LoDM[0] = "dark"
+        LoDM[2] = "#5e5e5e"
+        LoDM[3] = "#c7c7c7"
+        LoDM[4] = "#ffffff"
+        print(LoDM)
+    st.rerun()
+
+>>>>>>> dc4d4ebaaaf008074bc021e327f75eec8ba21ba8
 components.html(
     f"""
     <html>
@@ -330,6 +355,7 @@ files = os.listdir(floderpath)
 oldcookie = cookies
 
 
+<<<<<<< HEAD
 @st.experimental_fragment(run_every=1)
 def isCookieChange():
     global oldcookie
@@ -373,6 +399,55 @@ def isCookieChange():
     else:
         pass
     oldcookie = cookies
+=======
+def pageUpdate():
+    if "webNum" in cookies:
+        print(cookies["webNum"])
+        if cookies["webNum"] != "HOME":
+            with col2:
+                with open(
+                    floderpath + f"/class{cookies['webNum']}.md", encoding="utf-8"
+                ) as f:
+                    cotent = f.read()
+                st.markdown(cotent)
+        elif cookies["webNum"] == "HOME":
+            with col2:
+                st.html(
+                    """
+				<html>
+				<head>
+					<style>
+					#content {
+						overflow: auto;
+						align-items: center;
+						color: rgb(255, 255, 255);
+						text-shadow: 0px 1px 10px #eaeaea, 0px 0px 10px #a5a0ff;
+						width: 65%; /* 調整內容的寬度 */
+						margin-left: 5%; /* 左邊留白 */
+					}
+					</style>
+				</head>
+				<body>
+					<div id="content">
+					這是內容!
+					</div>
+				</body>
+				</html>
+				"""
+                )
+
+
+@st.experimental_fragment(run_every=1)
+def isCookieChange():
+    global oldcookie
+    cookies = cookie_manager.get_all()
+    if oldcookie != cookies:
+        pageUpdate()
+    else:
+        pass
+    oldcookie = cookies
+    st.rerun()
+>>>>>>> dc4d4ebaaaf008074bc021e327f75eec8ba21ba8
 
 
 isCookieChange()
